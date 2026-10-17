@@ -1,0 +1,4 @@
+
+labellerr-sdk @ git+https://github.com/Labellerr/SDKPython.git@99cfc99f9a761c038e1761446d5d2f9cd90b46d7
+python-dotenv>=1.0.1
+pytest>=8.0.0
