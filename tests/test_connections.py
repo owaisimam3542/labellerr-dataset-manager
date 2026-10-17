@@ -22,6 +22,22 @@ class Gateway:
         return True
 
 
+def test_unexpected_sdk_exception_is_friendly():
+    gateway = Gateway(
+        test_result=RuntimeError("SECRET_TOKEN private SDK response")
+    )
+
+    with pytest.raises(ServiceError) as exc_info:
+        ConnectionService(gateway).test(
+            "s3",
+            "s3://bucket/images",
+            "image",
+            "import",
+        )
+
+    assert "SECRET_TOKEN" not in str(exc_info.value)
+    assert "private SDK response" not in str(exc_info.value)
+
 def test_connection_validation_success():
     service = ConnectionService(Gateway())
     assert service.test("s3", "s3://bucket/images", "image", "import") is True
